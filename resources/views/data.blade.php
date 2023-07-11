@@ -48,11 +48,11 @@
                     @foreach ($weather2018 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -74,11 +74,11 @@
                     @foreach ($weather2019 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -100,11 +100,11 @@
                     @foreach ($weather2020 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -126,11 +126,11 @@
                     @foreach ($weather2021 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -152,11 +152,11 @@
                     @foreach ($weather2022 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -178,11 +178,11 @@
                     @foreach ($weather2023 as $data)
                         <tr>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->date; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->temperature; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->humidity; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->raingauge; }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->windspeed; }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $data->sunshine; }}</span></td>
                         </tr>
                     @endforeach
                     </tbody>

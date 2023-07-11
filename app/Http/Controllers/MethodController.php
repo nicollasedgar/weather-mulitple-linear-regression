@@ -12,6 +12,8 @@ class MethodController extends Controller
 {
     public function index()
     {
+        $dates = Weather::pluck('date');
+        $dependents = Weather::pluck('raingauge');
         // total rows and column
         $totalRows = Weather::count();
         $totalTemperature = Weather::sum('temperature');
@@ -89,6 +91,7 @@ class MethodController extends Controller
             [$sunshineRaingaugeTotal],
         ];
 
+        // build matrix
         $gridA = [
             [$totalRows, $totalTemperature, $totalHumidity, $totalWindspeed, $totalSunshine],
             [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureWindspeedTotal, $temperatureSunshineTotal],
@@ -144,6 +147,7 @@ class MethodController extends Controller
         $matrixA4 = new Matrix($gridA4);
         $matrixA5 = new Matrix($gridA5);
 
+        // determinant operation
         $detMatrixA = $matrixA->determinant();
         $detMatrixA1 = $matrixA1->determinant();
         $detMatrixA2 = $matrixA2->determinant();
@@ -151,14 +155,34 @@ class MethodController extends Controller
         $detMatrixA4 = $matrixA4->determinant();
         $detMatrixA5 = $matrixA5->determinant();
 
+        // coefficien multiple linear regression
         $koefisienb0 = $detMatrixA / $detMatrixA1;
         $koefisienb1 = $detMatrixA / $detMatrixA2;
         $koefisienb2 = $detMatrixA / $detMatrixA3;
         $koefisienb3 = $detMatrixA / $detMatrixA4;
         $koefisienb4 = $detMatrixA / $detMatrixA5;
 
+        // predict data with model
+        $weatherData = Weather::all();
+
+        $predictResult = [];
+
+        foreach ($weatherData as $data) {
+            $x1 = $data->temperature;
+            $x2 = $data->humidity;
+            $x3 = $data->windspeed;
+            $x4 = $data->sunshine;
+
+            $y = $koefisienb0 + ($koefisienb1 * $x1) + ($koefisienb2 * $x2) + ($koefisienb3 * $x3) + ($koefisienb4 * $x4);
+
+            $predictResult[] = $y;
+        }
+
         return view('method', [
             "title" => "Method",
+            "dates" => $dates,
+            "dependents" => $dependents,
+            "predictResult" => $predictResult,
             "temperatureRaingaugeTotal" => $temperatureRaingaugeTotal,
             "humidityRaingaugeTotal" => $humidityRaingaugeTotal,
             "windspeedRaingaugeTotal" => $windspeedRaingaugeTotal,
