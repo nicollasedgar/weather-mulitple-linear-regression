@@ -21,13 +21,12 @@
                 label: "Actual",
                 tension: 0.4,
                 pointRadius: 0,
-                borderColor: "#5e72e4",
+                borderColor: "rgba(0, 0, 255, 0.5)",
                 backgroundColor: gradientStroke1,
                 borderWidth: 3,
                 fill: true,
                 data: <?= json_encode($dependents); ?>,
-                maxBarThickness: 6
-
+                maxBarThickness: 6,
             },{
                 label: "Prediction",
                 tension: 0.4,

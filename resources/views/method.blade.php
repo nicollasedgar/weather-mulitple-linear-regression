@@ -43,7 +43,7 @@
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $temperatureSunshineTotal }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $humidityWindspeedTotal }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $humiditySunshineTotal }}</span></td>
-                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $windspeedSunshineTotal }}</span></td>
+                            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $sunshineWindspeedTotal }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $totalSquaredTemperature }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $totalSquaredHumidity }}</span></td>
                             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">{{ $totalSquaredWindspeed }}</span></td>
@@ -257,7 +257,7 @@
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Weather overview</h6>
+                        <h6 class="text-capitalize">Rain gauge prediction chart overview</h6>
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
@@ -271,6 +271,8 @@
         @include('layout.footer')
     </div>
 </main>
-@include('layout.chartjs')
+@section('include_chartjs')
+    true
+@endsection
 
 @endsection

@@ -12,8 +12,6 @@ class MethodController extends Controller
 {
     public function index()
     {
-        $dates = Weather::pluck('date');
-        $dependents = Weather::pluck('raingauge');
         // total rows and column
         $totalRows = Weather::count();
         $totalTemperature = Weather::sum('temperature');
@@ -68,7 +66,7 @@ class MethodController extends Controller
             ->selectRaw('SUM(temperature * sunshine) as temperature_sunshine_total')
             ->selectRaw('SUM(humidity * windspeed) as humidity_windspeed_total')
             ->selectRaw('SUM(humidity * sunshine) as humidity_sunshine_total')
-            ->selectRaw('SUM(windspeed * sunshine) as windspeed_sunshine_total')
+            ->selectRaw('SUM(windspeed * sunshine) as sunshine_windspeed_total')
             ->get();
 
         $temperatureRaingaugeTotal = $results[0]->temperature_raingauge_total;
@@ -80,7 +78,7 @@ class MethodController extends Controller
         $temperatureSunshineTotal = $results[0]->temperature_sunshine_total;
         $humidityWindspeedTotal = $results[0]->humidity_windspeed_total;
         $humiditySunshineTotal = $results[0]->humidity_sunshine_total;
-        $windspeedSunshineTotal = $results[0]->windspeed_sunshine_total;
+        $sunshineWindspeedTotal = $results[0]->sunshine_windspeed_total;
 
         // recently not use but in case looking for matrix H
         $gridH = [
@@ -93,51 +91,51 @@ class MethodController extends Controller
 
         // build matrix
         $gridA = [
-            [$totalRows, $totalTemperature, $totalHumidity, $totalWindspeed, $totalSunshine],
-            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureWindspeedTotal, $temperatureSunshineTotal],
-            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humidityWindspeedTotal, $humiditySunshineTotal],
-            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $totalSquaredWindspeed, $windspeedSunshineTotal],
-            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $windspeedSunshineTotal, $totalSquaredSunshine],
+            [$totalRows, $totalTemperature, $totalHumidity, $totalSunshine, $totalWindspeed],
+            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureSunshineTotal, $temperatureWindspeedTotal],
+            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humiditySunshineTotal, $humidityWindspeedTotal],
+            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $totalSquaredSunshine, $sunshineWindspeedTotal],
+            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $sunshineWindspeedTotal, $totalSquaredWindspeed],
         ];
 
         $gridA1 = [
-            [$totalRaingauge, $totalTemperature, $totalHumidity, $totalWindspeed, $totalSunshine],
-            [$temperatureRaingaugeTotal, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureWindspeedTotal, $temperatureSunshineTotal],
-            [$humidityRaingaugeTotal, $temperatureHumidityTotal, $totalSquaredHumidity, $humidityWindspeedTotal, $humiditySunshineTotal],
-            [$windspeedRaingaugeTotal, $temperatureWindspeedTotal, $humidityWindspeedTotal, $totalSquaredWindspeed, $windspeedSunshineTotal],
-            [$sunshineRaingaugeTotal, $temperatureSunshineTotal, $humiditySunshineTotal, $windspeedSunshineTotal, $totalSquaredSunshine],
+            [$totalRaingauge, $totalTemperature, $totalHumidity, $totalSunshine, $totalWindspeed],
+            [$temperatureRaingaugeTotal, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureSunshineTotal, $temperatureWindspeedTotal],
+            [$humidityRaingaugeTotal, $temperatureHumidityTotal, $totalSquaredHumidity, $humiditySunshineTotal, $humidityWindspeedTotal],
+            [$sunshineRaingaugeTotal, $temperatureSunshineTotal, $humiditySunshineTotal, $totalSquaredSunshine, $sunshineWindspeedTotal],
+            [$windspeedRaingaugeTotal, $temperatureWindspeedTotal, $humidityWindspeedTotal, $sunshineWindspeedTotal, $totalSquaredWindspeed],
         ];
 
         $gridA2 = [
-            [$totalRows, $totalRaingauge, $totalHumidity, $totalWindspeed, $totalSunshine],
-            [$totalTemperature, $temperatureRaingaugeTotal, $temperatureHumidityTotal, $temperatureWindspeedTotal, $temperatureSunshineTotal],
-            [$totalHumidity, $humidityRaingaugeTotal, $totalSquaredHumidity, $humidityWindspeedTotal, $humiditySunshineTotal],
-            [$totalWindspeed, $windspeedRaingaugeTotal, $humidityWindspeedTotal, $totalSquaredWindspeed, $windspeedSunshineTotal],
-            [$totalSunshine, $sunshineRaingaugeTotal, $humiditySunshineTotal, $windspeedSunshineTotal, $totalSquaredSunshine],
+            [$totalRows, $totalRaingauge, $totalHumidity, $totalSunshine, $totalWindspeed],
+            [$totalTemperature, $temperatureRaingaugeTotal, $temperatureHumidityTotal, $temperatureSunshineTotal, $temperatureWindspeedTotal],
+            [$totalHumidity, $humidityRaingaugeTotal, $totalSquaredHumidity, $humiditySunshineTotal, $humidityWindspeedTotal],
+            [$totalSunshine, $sunshineRaingaugeTotal, $humiditySunshineTotal, $totalSquaredSunshine, $sunshineWindspeedTotal],
+            [$totalWindspeed, $windspeedRaingaugeTotal, $humidityWindspeedTotal, $sunshineWindspeedTotal, $totalSquaredWindspeed],
         ];
 
         $gridA3 = [
-            [$totalRows, $totalTemperature, $totalRaingauge, $totalWindspeed, $totalSunshine],
-            [$totalTemperature, $totalSquaredTemperature, $temperatureRaingaugeTotal, $temperatureWindspeedTotal, $temperatureSunshineTotal],
-            [$totalHumidity, $temperatureHumidityTotal, $humidityRaingaugeTotal, $humidityWindspeedTotal, $humiditySunshineTotal],
-            [$totalWindspeed, $temperatureWindspeedTotal, $windspeedRaingaugeTotal, $totalSquaredWindspeed, $windspeedSunshineTotal],
-            [$totalSunshine, $temperatureSunshineTotal, $sunshineRaingaugeTotal, $windspeedSunshineTotal, $totalSquaredSunshine],
+            [$totalRows, $totalTemperature, $totalRaingauge, $totalSunshine, $totalWindspeed],
+            [$totalTemperature, $totalSquaredTemperature, $temperatureRaingaugeTotal, $temperatureSunshineTotal, $temperatureWindspeedTotal],
+            [$totalHumidity, $temperatureHumidityTotal, $humidityRaingaugeTotal, $humiditySunshineTotal, $humidityWindspeedTotal],
+            [$totalSunshine, $temperatureSunshineTotal, $sunshineRaingaugeTotal, $totalSquaredSunshine, $sunshineWindspeedTotal],
+            [$totalWindspeed, $temperatureWindspeedTotal, $windspeedRaingaugeTotal, $sunshineWindspeedTotal, $totalSquaredWindspeed],
         ];
 
         $gridA4 = [
-            [$totalRows, $totalTemperature, $totalHumidity, $totalRaingauge, $totalSunshine],
-            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureRaingaugeTotal, $temperatureSunshineTotal],
-            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humidityRaingaugeTotal, $humiditySunshineTotal],
-            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $windspeedRaingaugeTotal, $windspeedSunshineTotal],
-            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $sunshineRaingaugeTotal, $totalSquaredSunshine],
+            [$totalRows, $totalTemperature, $totalHumidity, $totalRaingauge, $totalWindspeed],
+            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureRaingaugeTotal, $temperatureWindspeedTotal],
+            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humidityRaingaugeTotal, $humidityWindspeedTotal],
+            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $sunshineRaingaugeTotal, $sunshineWindspeedTotal],
+            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $windspeedRaingaugeTotal, $totalSquaredWindspeed],
         ];
 
         $gridA5 = [
-            [$totalRows, $totalTemperature, $totalHumidity, $totalWindspeed, $totalRaingauge],
-            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureWindspeedTotal, $temperatureRaingaugeTotal],
-            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humidityWindspeedTotal, $humidityRaingaugeTotal],
-            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $totalSquaredWindspeed, $windspeedRaingaugeTotal],
-            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $windspeedSunshineTotal, $sunshineRaingaugeTotal],
+            [$totalRows, $totalTemperature, $totalHumidity, $totalSunshine, $totalRaingauge],
+            [$totalTemperature, $totalSquaredTemperature, $temperatureHumidityTotal, $temperatureSunshineTotal, $temperatureRaingaugeTotal],
+            [$totalHumidity, $temperatureHumidityTotal, $totalSquaredHumidity, $humiditySunshineTotal, $humidityRaingaugeTotal],
+            [$totalSunshine, $temperatureSunshineTotal, $humiditySunshineTotal, $totalSquaredSunshine, $sunshineRaingaugeTotal],
+            [$totalWindspeed, $temperatureWindspeedTotal, $humidityWindspeedTotal, $sunshineWindspeedTotal, $windspeedRaingaugeTotal],
         ];
 
         $matrixA = new Matrix($gridA);
@@ -156,12 +154,15 @@ class MethodController extends Controller
         $detMatrixA5 = $matrixA5->determinant();
 
         // coefficien multiple linear regression
-        $koefisienb0 = $detMatrixA / $detMatrixA1;
-        $koefisienb1 = $detMatrixA / $detMatrixA2;
-        $koefisienb2 = $detMatrixA / $detMatrixA3;
-        $koefisienb3 = $detMatrixA / $detMatrixA4;
-        $koefisienb4 = $detMatrixA / $detMatrixA5;
+        $koefisienb0 = $detMatrixA1 / $detMatrixA;
+        $koefisienb1 = $detMatrixA2 / $detMatrixA;
+        $koefisienb2 = $detMatrixA3 / $detMatrixA;
+        $koefisienb3 = $detMatrixA4 / $detMatrixA;
+        $koefisienb4 = $detMatrixA5 / $detMatrixA;
 
+        // for chartjs labels and datasets
+        $dates = Weather::pluck('date');
+        $dependents = Weather::pluck('raingauge');
         // predict data with model
         $weatherData = Weather::all();
 
@@ -192,7 +193,7 @@ class MethodController extends Controller
             "temperatureSunshineTotal" => $temperatureSunshineTotal,
             "humidityWindspeedTotal" => $humidityWindspeedTotal,
             "humiditySunshineTotal" => $humiditySunshineTotal,
-            "windspeedSunshineTotal" => $windspeedSunshineTotal,
+            "sunshineWindspeedTotal" => $sunshineWindspeedTotal,
             "totalSquaredTemperature" => $totalSquaredTemperature,
             "totalSquaredHumidity" => $totalSquaredHumidity,
             "totalSquaredWindspeed" => $totalSquaredWindspeed,
