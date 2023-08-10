@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-tint text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-asterisk text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-thermometer-half text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-header text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-sun-o text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +140,7 @@
                         <p>x3 = Sunshine duration</p>
                         <p>x4= Wind speed</p>
                         <p>Y prediction = <b id="prediction-monitoring">- -</b></p>
+                        <p id="prediction-information"></p>
                     </div>
                 </div>
             </div>
@@ -165,6 +166,7 @@
                 const humidityElement = document.getElementById('humidity-monitoring');
                 const sunshineElement = document.getElementById('sunshine-monitoring');
                 const predictionElement = document.getElementById('prediction-monitoring');
+                const informationElement = document.getElementById('prediction-information');
                 
                 raingaugeElement.innerHTML = data.raingauge[0].value;
                 windspeedElement.innerHTML = data.anemometer[0].value;
@@ -172,8 +174,21 @@
                 humidityElement.innerHTML = data.humidity[0].value;
                 sunshineElement.innerHTML = data.uvintensity[0].value;
                 let prediction = 0;
-                prediction = -4.5417 + -0.3425*parseFloat(data.temperature[0].value) + 0.3265*parseFloat(data.humidity[0].value) + -0.7207*parseFloat(data.temperature[0].value) + -1.2827*parseFloat(data.uvintensity[0].value);
+                prediction = -4.5417 + -0.3425*parseFloat(data.temperature[0].value) + 0.3265*parseFloat(data.humidity[0].value) + -0.7207*parseFloat(data.uvintensity[0].value) + -1.2827*parseFloat(data.uvintensity[0].value);
                 predictionElement.innerHTML = prediction;
+                if (prediction === 0) {
+                    informationElement.innerHTML = 'Berawan';
+                } else if (prediction >= 0.5 && prediction < 20) {
+                    informationElement.innerHTML = 'Hujan Ringan'
+                } else if (prediction >= 20 && prediction < 50) {
+                    informationElement.innerHTML = 'Hujan Sedang'
+                } else if (prediction >= 50 && prediction < 100) {
+                    informationElement.innerHTML = 'Hujan Lebat'
+                } else if (prediction >= 100 && prediction < 150) {
+                    informationElement.innerHTML = 'Hujan Sangat Lebat'
+                } else {
+                    informationElement.innerHTML = 'Hujan Ekstrim'
+                }
             }
         };
 

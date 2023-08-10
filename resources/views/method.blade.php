@@ -200,7 +200,7 @@
                     <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                       <div class="d-flex align-items-center">
                         <div class="d-flex flex-column">
-                            <span class="text-xs">b0</span>
+                            <span class="text-xs">a</span>
                             <h6 class="mb-1 text-secondary text-sm">{{ $koefisienb0 }}</h6>
                         </div>
                       </div>  
