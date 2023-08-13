@@ -140,7 +140,18 @@
                         <p>x3 = Sunshine duration</p>
                         <p>x4= Wind speed</p>
                         <p>Y prediction = <b id="prediction-monitoring">- -</b></p>
-                        <p id="prediction-information"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 mb-lg-0 mb-4">
+                <div class="card h-100">
+                    <div class="card-header mx-4 pt-7 text-center">
+                        <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg h-100 w-100">
+                            <img src="../assets/img/tidak-ada-hujan.png" alt="user5" id="prediction-image">
+                        </div>
+                    </div>
+                    <div class="card-body pt-0 p-3 text-center">
+                        <h5 class="mb-0" id="prediction-information">--</h5>
                     </div>
                 </div>
             </div>
@@ -167,6 +178,7 @@
                 const sunshineElement = document.getElementById('sunshine-monitoring');
                 const predictionElement = document.getElementById('prediction-monitoring');
                 const informationElement = document.getElementById('prediction-information');
+                const informationImage = document.getElementById('prediction-image');
                 
                 raingaugeElement.innerHTML = data.raingauge[0].value;
                 windspeedElement.innerHTML = data.anemometer[0].value;
@@ -177,17 +189,22 @@
                 prediction = -4.5417 + -0.3425*parseFloat(data.temperature[0].value) + 0.3265*parseFloat(data.humidity[0].value) + -0.7207*parseFloat(data.uvintensity[0].value) + -1.2827*parseFloat(data.uvintensity[0].value);
                 predictionElement.innerHTML = prediction;
                 if (prediction === 0) {
-                    informationElement.innerHTML = 'Berawan';
+                    informationElement.innerHTML = 'Berawan'
                 } else if (prediction >= 0.5 && prediction < 20) {
                     informationElement.innerHTML = 'Hujan Ringan'
+                    informationImage.src = "../assets/img/hujan-ringan.png";
                 } else if (prediction >= 20 && prediction < 50) {
                     informationElement.innerHTML = 'Hujan Sedang'
+                    informationImage.src = "../assets/img/hujan-sedang.png";
                 } else if (prediction >= 50 && prediction < 100) {
                     informationElement.innerHTML = 'Hujan Lebat'
+                    informationImage.src = "../assets/img/hujan-lebat.png";
                 } else if (prediction >= 100 && prediction < 150) {
                     informationElement.innerHTML = 'Hujan Sangat Lebat'
+                    informationImage.src = "../assets/img/hujan-sangat-lebat.png";
                 } else {
                     informationElement.innerHTML = 'Hujan Ekstrim'
+                    informationImage.src = "../assets/img/hujan-ekstrem.png";
                 }
             }
         };
